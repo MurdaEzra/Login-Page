@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Navigate } from 'react-router-dom';
 import { UsersIcon, AlertCircleIcon, ClockIcon, SchoolIcon } from 'lucide-react';
 import DashboardHeader from '../components/DashboardHeader';
 import { useAuth } from '../context/AuthContext';
+import supabase from '../context/supabaseClient';
 const AdminDashboard: React.FC = () => {
   const {
     user,
@@ -11,6 +12,33 @@ const AdminDashboard: React.FC = () => {
   if (!isAuthenticated || user?.role !== 'admin') {
     return <Navigate to="/" />;
   }
+  const [issues, setIssues] = useState<any[]>([]);
+
+
+useEffect(() => {
+  const fetchIssues = async () => {
+    const { data, error } = await supabase
+      .from('issues')
+      .select(`
+        id,
+        subject,
+        question,
+        created_at,
+        student_id,
+        profiles (name, email)
+      `)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching issues:', error.message);
+    } else {
+      setIssues(data);
+    }
+  };
+
+  fetchIssues();
+}, []);
+
   const adminData = user as any;
   const statistics = adminData.statistics || {};
   const divisions = statistics.divisions || {};
@@ -40,7 +68,7 @@ const AdminDashboard: React.FC = () => {
                 <div className="text-sm font-medium text-gray-500 mb-1">
                   {division}
                 </div>
-                <div className="text-2xl font-bold text-gray-800">{count}</div>
+                <div className="text-2xl font-bold text-gray-800">{count as number}</div>
               </div>
             </div>)}
         </div>
@@ -94,40 +122,48 @@ const AdminDashboard: React.FC = () => {
             </div>
           </div>
           {/* Issues Section */}
+          
           <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
             <div className="flex items-center mb-4">
               <AlertCircleIcon className="h-5 w-5 text-amber-600 mr-2" />
               <h3 className="text-lg font-semibold">Issues & Requests</h3>
             </div>
             <div className="space-y-3">
-              {(adminData.issues || []).map((issue: any) => <div key={issue.id} className="p-3 bg-gray-50 rounded-md">
-                  <div className="flex justify-between">
-                    <div>
-                      <span className="font-medium text-gray-800">
-                        {issue.title}
-                      </span>
-                      <div className="text-xs text-gray-500 mt-1">
-                        From: {issue.name} ({issue.from})
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-end">
-                      <span className={`text-xs px-2 py-1 rounded ${issue.status === 'Resolved' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800'}`}>
-                        {issue.status}
-                      </span>
-                      <span className="text-xs text-gray-500 mt-1">
-                        {issue.date}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex mt-2 space-x-2">
-                    <button className="text-xs bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-2 rounded">
-                      View Details
-                    </button>
-                    {issue.status !== 'Resolved' && <button className="text-xs bg-amber-600 hover:bg-amber-700 text-white py-1 px-2 rounded">
-                        Mark as Resolved
-                      </button>}
-                  </div>
-                </div>)}
+              
+
+          {issues.map(issue => (
+  <div key={issue.id} className="p-3 bg-gray-50 rounded-md">
+    <div className="flex justify-between">
+      <div>
+        <span className="font-medium text-gray-800">
+          {issue.subject}
+        </span>
+        <p className="text-sm text-gray-600 mt-1">{issue.question}</p>
+        <div className="text-xs text-gray-500 mt-1">
+          From: {issue.profiles?.name || 'Unknown'} ({issue.profiles?.email || 'No email'})
+        </div>
+      </div>
+      <div className="flex flex-col items-end">
+        <span className="text-xs px-2 py-1 rounded bg-amber-100 text-amber-800">
+          New
+        </span>
+        <span className="text-xs text-gray-500 mt-1">
+          {new Date(issue.created_at).toLocaleString()}
+        </span>
+      </div>
+    </div>
+    <div className="flex mt-2 space-x-2">
+      <button className="text-xs bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-2 rounded">
+        View Details
+      </button>
+      {/* Optional: Add resolve logic */}
+      <button className="text-xs bg-green-600 hover:bg-green-700 text-white py-1 px-2 rounded">
+        Mark as Resolved
+      </button>
+    </div>
+  </div>
+))}
+
             </div>
           </div>
           {/* School Overview */}
