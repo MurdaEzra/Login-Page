@@ -98,7 +98,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       .from('profiles')
       .select('name, role')
       .eq('id', supabaseUser.id)
-      .single();
+      .maybeSingle();
       console.log('User profile data:', data);
       if(error){
         console.error('Error fetching user profile:', error);

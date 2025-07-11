@@ -85,7 +85,7 @@ const LoginPage: React.FC = () => {
               </label>
             </div>
             <div className="text-sm">
-              <a href="#" className="font-medium text-amber-600 hover:text-amber-500">
+              <a href="{{ .ConfirmationURL }}" className="font-medium text-amber-600 hover:text-amber-500">
                 Forgot password?
                 
               </a>
@@ -99,7 +99,7 @@ const LoginPage: React.FC = () => {
         </form>
         <div className="mt-6">
           <p className="text-xs text-center text-gray-500">
-            The Student-Teacher LMS platform will open soon
+            The Student-Teacher LMS portal will open soon!!!!!!!!
           </p>
         </div>
       </div>

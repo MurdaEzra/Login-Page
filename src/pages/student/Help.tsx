@@ -27,7 +27,7 @@ const Help: React.FC = () => {
   return <DashboardLayout title="Get Help">
       <div className="mb-6">
         <h2 className="text-2xl font-semibold text-gray-800">Need Help?</h2>
-        <p className="text-gray-600">Get support from our teachers and staff</p>
+        <p className="text-gray-600">Get support from our technicians.</p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 bg-white rounded-lg shadow-sm p-6 border border-gray-200">
@@ -77,7 +77,7 @@ const Help: React.FC = () => {
               <PhoneIcon className="h-5 w-5 text-gray-500 mr-3 mt-0.5" />
               <div>
                 <p className="font-medium">School Office</p>
-                <p className="text-gray-600">+254 123 456 789</p>
+                <p className="text-gray-600">+254 728 135 200</p>
                 <p className="text-sm text-gray-500">
                   Mon-Fri, 8:00 AM - 5:00 PM
                 </p>
@@ -87,7 +87,7 @@ const Help: React.FC = () => {
               <MailIcon className="h-5 w-5 text-gray-500 mr-3 mt-0.5" />
               <div>
                 <p className="font-medium">Email Support</p>
-                <p className="text-gray-600">support@elsaacademy.edu</p>
+                <p className="text-gray-600">ezranyamwange2@gmail.com</p>
                 <p className="text-sm text-gray-500">
                   We respond within 24 hours
                 </p>
