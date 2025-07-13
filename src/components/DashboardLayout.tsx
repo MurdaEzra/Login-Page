@@ -2,7 +2,8 @@ import React, { ReactNode, useState } from 'react';
 import DashboardHeader from './DashboardHeader';
 import DashboardSidebar from './DashboardSidebar';
 import { useAuth } from '../context/AuthContext';
-import { MenuIcon } from 'lucide-react';
+import { MenuIcon, LogOutIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const CustomDashboardHeader: React.FC<{ title: string; onMenuClick?: () => void }> = ({ title, onMenuClick }) => {
   return (
@@ -32,6 +33,25 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, title }) =>
   if (!user) {
     return <div>Loading...</div>;
   }
+  console.log(title);
+
+interface DashboardHeaderProps {
+  title: string;
+}
+const DashboardHeader: React.FC<DashboardHeaderProps> = ({
+  title
+}) => {
+  const {
+    user,
+    logout
+  } = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
+  <DashboardHeader title="My Dashboard"/>
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <CustomDashboardHeader title={title} onMenuClick={() => setSidebarOpen(true)} />
@@ -64,8 +84,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, title }) =>
           {children}
         </main>
       </div>
+       <button onClick={handleLogout} className="p-2 rounded-full hover:bg-gray-100 flex items-center">
+            <LogOutIcon className="h-5 w-5 text-gray-600" />
+            <span className="hidden md:inline ml-1 text-sm">Logout</span>
+          </button>
     </div>
   );
 };
+}
 
 export default DashboardLayout;

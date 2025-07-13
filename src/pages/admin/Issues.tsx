@@ -20,7 +20,7 @@ const Issues: React.FC = () => {
         <h2 className="text-2xl font-semibold text-gray-800">
           Issues & Requests
         </h2>
-        <p className="text-gray-600">Manage and resolve reported issues</p>
+        <p className="text-gray-600">Manage and resolve reported issues <AlertCircleIcon/></p>
       </div>
       <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200 mb-6">
         <div className="flex flex-wrap gap-3 items-center justify-between">
