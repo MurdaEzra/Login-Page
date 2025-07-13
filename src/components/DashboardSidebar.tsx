@@ -15,7 +15,7 @@ const NavItem: React.FC<NavItemProps> = ({
   const location = useLocation();
   const isActive = location.pathname === to;
   return <NavLink to={to} className={({
-    isActive
+    isActive 
   }) => `flex items-center px-4 py-3 text-sm transition-colors ${isActive ? 'bg-amber-100 text-amber-800 font-medium border-r-4 border-amber-600' : 'text-gray-700 hover:bg-gray-100'}`}>
       <span className="mr-3">{icon}</span>
       {label}
@@ -23,6 +23,7 @@ const NavItem: React.FC<NavItemProps> = ({
 };
 interface DashboardSidebarProps {
   userRole?: UserRole;
+  closeSidebar: () => void;
 }
 const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   userRole

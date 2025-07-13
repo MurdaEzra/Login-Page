@@ -38,7 +38,7 @@ const AdminDashboard: React.FC = () => {
               <div className="text-sm font-medium text-gray-500 mb-1">
                 {division}
               </div>
-              <div className="text-2xl font-bold text-gray-800">{count}</div>
+              <div className="text-2xl font-bold text-gray-800">{count as number}</div>
             </div>
           </div>)}
       </div>

@@ -25,6 +25,7 @@ const Help: React.FC = () => {
         question,
       }
     ]);
+    console.log('Issue submitted:', data);
 
     if (!error) {
       setSubmitted(true);

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Navigate } from 'react-router-dom';
-import { UsersIcon, AlertCircleIcon, ClockIcon, SchoolIcon } from 'lucide-react';
+import { BarChartIcon, AlertCircleIcon, ClockIcon, SchoolIcon } from 'lucide-react';
 import DashboardHeader from '../components/DashboardHeader';
 import { useAuth } from '../context/AuthContext';
 import supabase from '../context/supabaseClient';
